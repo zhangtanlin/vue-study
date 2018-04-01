@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>指令v-for</title>
+		<script src="../node_modules/vue/dist/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="testVue">
+			<!--基本循环-->
+            <ul>
+            	<li v-for='name in names'>{{name}}</li>
+            </ul>
+            
+            <ul>
+            	<li v-for='user in users'>{{user.name}}的年龄是{{user.age}}</li>
+            </ul>
+            <hr />
+            
+            <!--
+            	作者：zhangtanlin90@126.com
+            	时间：2018-04-01
+            	描述：index是表示下标【从0开始计算】
+            		注意循环时不仅仅只能使用ul、li，只要是节点元素都可以实现循环
+            -->
+            <ul>
+            	<li v-for="(user,index) in users">
+            		第{{ index+1 }} 个数据，{{user.name}}的年龄是{{user.age}}
+            	</li>
+            </ul>
+            <hr />
+            
+            <!--
+            	作者：zhangtanlin90@126.com
+            	时间：2018-04-01
+            	描述：由于循环会在页面上循环出DOM节点，
+            		为了隐藏节点可以使用template
+            -->
+            <template v-for="(user,index) in users">
+            	第{{ index+1 }} 个数据，{{user.name}}的年龄是{{user.age}}
+            </template>
+            <hr />
+            
+            <!--
+            	作者：zhangtanlin90@126.com
+            	时间：2018-04-01
+            	重要：v-for内部同时可以嵌套遍历。【下面实例遍历内部对象】
+            		多层嵌套方法很多，要活学活用。
+            		遍历时要注意参数的顺序，(user,index)。
+            		遍历对象使用(value,key)，还要注意顺序，value在前key在后。
+            -->
+            <template v-for="(user,index) in users">
+            	<div v-for="(value,key) in user">
+            		key值是{{key}}，value值是{{value}}
+            	</div>
+            </template>
+            
+		</div>
+		
+		<script type="text/javascript">
+			new Vue({
+				el:'#testVue',
+				data:{
+					names:['父亲','母亲','姐姐','我'],
+					users:[
+						{name:'父亲',age:63},
+						{name:'母亲',age:62},
+						{name:'姐姐',age:38},
+						{name:'我',age:28}
+					]
+				},
+				methods:function(){
+					
+				},
+				computed:{
+					
+				}
+			});
+		</script>
+	</body>
+</html>

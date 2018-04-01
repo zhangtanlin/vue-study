@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>计算属性</title>
+		<script src="../node_modules/vue/dist/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="testVue">
+			<button type="button" v-on:click="a++">a++</button>
+			<button type="button" v-on:click="b++">b++</button>
+			<p>a的值是：{{ a }}</p>
+			<p>b的值是：{{ b }}</p>
+			<hr />
+			
+			<!--
+            	作者：zhangtanlin90@126.com
+            	时间：2018-04-01
+            	描述：{{}}调用methodsli的方法需要添加()。
+            -->
+            <p>a+age的值是：{{ aAddAge() }}</p>
+            <p>b+age的值是：{{ bAddAge() }}</p>
+			
+		</div>
+		
+		<script type="text/javascript">
+			new Vue({
+				/**
+				 * 在同一个Vue对象内，可以同时计算，
+				 * 比如：实现了a++或者b++，与a和b有关的相关方法都会执行
+				 * 即data内的数据改变了，Vue会遍历methods里的所有方法。
+				 * 注意：这种方法开销比较大。
+				 */
+				el:'#testVue',
+				data:{
+					a:1,
+					b:2,
+					age:3
+				},
+				methods:{
+					aAddAge:function(){
+						console.log('++++++++++');
+						return this.a + this.age;
+					},
+					bAddAge:function(){
+						console.log('----------');
+						return this.b + this.age;
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

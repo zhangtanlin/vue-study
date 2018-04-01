@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>键值修饰符</title>
+		<script src="../node_modules/vue/dist/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="testVue">
+			<label>
+				文本框：
+				<input type="text" @keyup="logMessage"/>
+			</label>
+			<br />
+			
+			<!--
+            	作者：zhangtanlin90@126.com
+            	时间：2018-04-01
+            	描述：在Vue正常事件中
+            		@keyup="logMessage"可以使用Vue的键盘事件，
+            		同时Vue还提供了指定按键情况下才执行的方法，
+            		例如：@keyup.enter="logMessage"，
+            			就只有按回车键【enter】时才执行logMessage方法
+            -->
+			<label>
+				姓名：
+				<input type="text" @keyup.enter="logMessage"/>
+			</label>
+			<br />
+			
+			<!--
+            	作者：zhangtanlin90@126.com
+            	时间：2018-04-01
+            	描述：键值修饰符是可以进行链式操作，其中
+            			@keyup.space.left="logMessage"
+            			即：同时按住空格键+向左键，才执行logMessage方法。
+            -->
+            <label>
+				姓名：
+				<input type="text" @keyup.space.left="logMessage"/>
+			</label>
+            
+		</div>
+		
+		<script type="text/javascript">
+			new Vue({
+				el:'#testVue',
+				data:{
+					
+				},
+				methods:{
+					logMessage:function(){
+						console.log('执行了键盘按键事件');
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

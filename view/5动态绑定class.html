@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>动态绑定</title>
+		<style type="text/css">
+			span{color:pink;background-color: #FF0000;display: inline-block;padding: 10px;margin: 10px;}
+			.green span{background-color: green;}
+			.length span:after{content: '我是追加的length';margin-left: 10px;background-color: cyan;}
+		</style>
+		<script src="../node_modules/vue/dist/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="testVue">
+			<!--
+            	作者：zhangtanlin90@126.com
+            	时间：2018-04-01
+            	描述：常规使用绑定类名的方法，是使用：
+            		v-bind:class="{green:true,length:true}"
+            -->
+            <h4 v-bind:class="{green:true,length:true}">
+            	<span>常规类名绑定方法(v-bind:class="{green:true,length:true}")</span>
+            </h1>
+            <hr />
+            
+            <!--
+            	作者：zhangtanlin90@126.com
+            	时间：2018-04-01
+            	描述：动态操作类名绑定
+            -->
+            <h4 v-bind:class="{green:changeColor}" v-on:click="changeColor = !changeColor">
+            	<span>动态操作类名绑定</span>
+            </h1>
+            <hr />
+            
+            <!--
+            	作者：zhangtanlin90@126.com
+            	时间：2018-04-01
+            	描述：
+            -->
+            <button type="button" v-on:click="changeColor = !changeColor">点击改变颜色</button>
+            <button type="button" v-on:click="changeLength = !changeLength">点击改变长度</button>
+            <h1 v-bind:class="changeClassAttr">
+            	<span>动态操作类名绑定</span>
+            </h1>
+            
+		</div>
+		
+		<script type="text/javascript">
+			new Vue({
+				el:'#testVue',
+				data:{
+					changeColor:false,
+					changeLength:false
+				},
+				computed:{
+					changeClassAttr:function(){
+						return {
+							green: this.changeColor,
+							length: this.changeLength
+						}
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

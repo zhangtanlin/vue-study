@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>事件</title>
+		<style type="text/css">
+			.redBox{padding: 5px; margin: 10px 0;border: 1px solid #ff0000;}
+		</style>
+		<script src="../node_modules/vue/dist/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="testVue">
+			<p>我的年龄是{{ age }}</p>
+			<button type="button" v-on:click="age++">点我年龄+1</button>
+			<button type="button" v-on:click="age--">点我年龄-1</button>
+			
+			<div class="redBox">
+				<p>利用methods运算，我的年龄是{{ ageMethods }}</p>
+				
+				<!--单击操作-->
+				<button type="button" v-on:click="add">利用methods运算,年龄++</button>
+				<button type="button" v-on:click="del">利用methods运算,年龄--</button>
+				
+				<!--双击操作-->
+				<button type="button" v-on:dblclick="add">利用methods运算,年龄++</button>
+				<button type="button" v-on:dblclick="del">利用methods运算,年龄--</button>
+
+				<!--单击传参【单击一次以10计算】-->	
+				<button type="button" v-on:click="add10(10)">利用methods运算,年龄+10</button>
+				<button type="button" v-on:click="del10(10)">利用methods运算,年龄-10</button>
+			</div>
+			
+		</div>
+		
+		<script type="text/javascript">
+			new Vue({
+				//Vue容器
+				el:'#testVue',
+				//绑定的数据
+				data:{
+					//注意数据类型【字符串类型数据不能进行运算】
+					age:28,
+					ageMethods:29
+				},
+				methods:{
+					/**
+					 * 注意1：在{{}}里面调用methods的方法一定要写成 {{ add() }}。
+					 * 注意2：在使用 v-on:click="" 这种事件调用methods里的方法时可以不添加()，
+					 * 		挡需要在 v-on:click="" 方法里传递参数需要添加()。
+					 * 注意3：在各个元素上，可以累加多个事件。这些事件会被一步一步的执行。
+					 */
+					add:function(){
+						this.ageMethods++;
+					},
+					del:function(){
+						this.ageMethods--;
+					},
+					add10:function(data){
+						this.ageMethods += data;
+					},
+					del10:function(data){
+						this.ageMethods -= data;
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

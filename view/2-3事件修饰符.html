@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>事件修饰符</title>
+		<style type="text/css">
+			.redBox{width: 300px;height: 300px;border: 1px solid #ff0000;}
+		</style>
+		<script src="../node_modules/vue/dist/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="testVue">
+			<div class="redBox" v-on:mousemove="updateXY">
+				x:{{ x }} y:{{y}}。(v-on:)等价于(@)
+				<br />
+				
+				<!--
+                	作者：zhangtanlin90@126.com
+                	时间：2018-04-01
+                	描述：鼠标移入下面的span，会调用Vue的阻止冒泡的方法，
+                		在Vue中可以使用
+                		@mousemove.stop
+                		也可以使用@mousemove.stop=""
+                		或者写成
+                		@mousemove.stop="stopMoving"
+                		来调用Vue封装好的阻止冒泡的方法
+                -->
+				<span v-on:mousemove.stop style="background-color: #FF0000;">
+					鼠标移入后会阻止事件【阻止事件冒泡】
+				</span>
+				
+				<!--
+                	作者：zhangtanlin90@126.com
+                	时间：2018-04-01
+                	描述：当a标签上有默认href事件的同时，还添加Vue事件，会先执行Vue事件再执行href
+                		但是在Vue事件上添加.prevent事件修饰符后，会阻止默认href跳转。
+                		【相当于只执行Vue事件不执行其他方法】
+                -->
+				<p>
+					<a href="http://www.baidu.com/" @click.prevent="alertHello"></a>
+				</p>
+				
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			new Vue({
+				el:'#testVue',
+				data:{
+					x:0,
+					y:0
+				},
+				methods:{
+					updateXY:function(event){
+						console.log(event);
+						this.x = event.offsetX;
+						this.y = event.offsetY;
+					},
+					stopMoving:function(event){
+						event.stopPropagation();//js阻止冒泡的方法
+					},
+					alertHello:function(){
+						alert('hello');
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

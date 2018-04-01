@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>双向数据绑定</title>
+		<script src="../node_modules/vue/dist/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="testVue">
+			<!--
+            	作者：zhangtanlin90@126.com
+            	时间：2018-04-01
+            	描述：利用$refs实现双向数据绑定，
+            		利用$refs【相当于】先获取value值，然后把value值赋给指定ref
+            -->
+			<label>
+				input：{{ input }}
+				<input type="text" ref="input" @keyup="getInputVal"/>
+			</label>
+			<br />
+			
+			<!--
+            	作者：zhangtanlin90@126.com
+            	时间：2018-04-01
+            	描述：在Vue中提供了v-model实现双向绑定
+            		v-model是先识别data里面的属性值，然后赋给{{inputModel}}
+            -->
+            <label>
+				inputModel：{{ inputModel }}
+				<input type="text" v-model="inputModel"/>
+			</label>
+			<br />
+            
+		</div>
+		
+		<script type="text/javascript">
+			new Vue({
+				el:'#testVue',
+				data:{
+					input:'',
+					inputModel:'hello'
+				},
+				methods:{
+					getInputVal:function(){
+						this.input = this.$refs.input.value;
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

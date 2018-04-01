@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>数据绑定和绑定方法</title>
+		<script src="../node_modules/vue/dist/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="testVue">
+			<p>{{ message }}</p>
+			<a v-bind:href="href">v-bind的用法：(v-bind:属性值="data里面的key")</a>
+			<p v-html="tag">使用(v-html="")可以引入一段html</p>
+			<h3>{{ greet("morning") }}</h3>
+			<h3>{{ getValueMessage() }}</h3>
+		</div>
+		
+		<script type="text/javascript">
+			new Vue({
+				//Vue容器
+				el:'#testVue',
+				//绑定的数据
+				data:{
+					message:'我是用来测试data的message的',
+					//绑定属性值【绑定属性值，是使用(v-bind:属性="")】
+					href:'http://baidu.com/',
+					//绑定一段html到元素上
+					tag:'<a href="http://www.baidu.com">我是一个绑定的html标签</a>'
+				},
+				methods:{
+					/*
+					 * 从Vue节点可以传递参数到方法里
+					 * */
+					greet:function(data){
+						return 'good ' + data + '!';
+					},
+					getValueMessage:function(){
+						/**
+						 * 如果需要获取当前容器里的message值，
+						 * 可以直接使用this.message获取，
+						 * 不能使用this.data.message【这种写法在Vue中会报错】。
+						 * 同时如果需要调用methods里面的方法是使用this.getValueMessage
+						 */
+						return '提示语：' + this.message;
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

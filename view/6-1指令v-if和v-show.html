@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>指令v-if和v-show</title>
+		<script src="../node_modules/vue/dist/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="testVue">
+            <button type="button" v-on:click="error = !error">toggle网络连接失败</button>
+            <button type="button" v-on:click="success = !success">toggle网络连接成功</button>
+            <!--
+            	作者：zhangtanlin90@126.com
+            	时间：2018-04-01
+            	描述：当使用v-if进行判定时，是直接判定重新加载DOM节点，
+            		其中v-if是利用布尔值【字符串】进行判定，
+            		v-else-if在v-if和v-else中间【注意下面的实例的效果，理解为上】
+            		v-else是跟着v-if结束，表示v-if不成立时的判定
+            		特殊的是v-else=""里面的参数可以为空
+            		【<p v-else="!error && !success">鬼知道我经历了什么</p>】
+            -->
+            <p v-if="error">网络连接失败：404</p>
+            <p v-else-if="success">网络连接成功：200</p>
+            <p v-else="">鬼知道我经历了什么</p>
+            <hr />
+            
+            <!--
+            	作者：zhangtanlin90@126.com
+            	时间：2018-04-01
+            	描述：v-show是利用了css的display的一些属性，
+            		而不是删除增加DOM。
+            -->
+            <p v-show="error">注意我是使用了v-show方法，网络连接失败！</p>
+            <p v-show="success">注意我是使用了v-show方法，网络连接成功！</p>
+            
+		</div>
+		
+		<script type="text/javascript">
+			new Vue({
+				el:'#testVue',
+				data:{
+					error:false,
+					success:false
+				},
+				methods:function(){
+					
+				},
+				computed:{
+					
+				}
+			});
+		</script>
+	</body>
+</html>

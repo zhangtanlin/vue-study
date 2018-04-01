@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>计算属性</title>
+		<script src="../node_modules/vue/dist/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="testVue">
+			<button type="button" v-on:click="x++">x++</button>
+			<button type="button" v-on:click="y++">y++</button>
+			<p>x的值是：{{ x }}</p>
+			<p>y的值是：{{ y }}</p>
+			<hr />
+			
+			<!--
+            	作者：zhangtanlin90@126.com
+            	时间：2018-04-01
+            	描述：{{}}调用computed计算方法时不能添加()。
+            -->
+            <p>x+age的值是：{{ xAddAge }}</p>
+            <p>y+age的值是：{{ yAddAge }}</p>
+			
+		</div>
+		
+		<script type="text/javascript">
+			new Vue({
+				/**
+				 * 在同一个Vue对象内，可以同时计算，
+				 * 比如：实现了a++或者b++，与a和b有关的相关方法都会执行
+				 * 即data内的数据改变了，Vue会遍历methods里的所有方法。
+				 * 注意：这种方法开销比较大。
+				 */
+				el:'#testVue',
+				data:{
+					x:1,
+					y:2,
+					age:3
+				},
+				/**
+				 * 运用computed计算属性方法，
+				 * 不会遍历computed里的所有方法，
+				 * 只会调用相关方法，所以开销比较小。
+				 * 由于Vue操作的是虚拟DOM，而methods操作的DOM对应的都是类真实DOM。
+				 * computed的使用标准是，当虚拟DOM和真实DOM不一致时，才使用。
+				 * 计算属性方法computed不是经常使用，而是当运算比较频繁，数据多才使用。
+				 */
+				computed:{
+					xAddAge:function(){
+						console.log('++++++++++');
+						return this.x + this.age;
+					},
+					yAddAge:function(){
+						console.log('----------');
+						return this.y + this.age;
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

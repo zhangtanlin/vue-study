@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>鼠标事件</title>
+		<style type="text/css">
+			.redBox{width: 300px;height: 300px;border: 1px solid #ff0000;}
+		</style>
+		<script src="../node_modules/vue/dist/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="testVue">
+			<div class="redBox" v-on:mousemove="updateXY">
+				x:{{ x }} y:{{y}}。(v-on:)等价于(@)
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			new Vue({
+				el:'#testVue',
+				//绑定的数据
+				data:{
+					//注意数据类型【字符串类型数据不能进行运算】
+					x:0,
+					y:0
+				},
+				methods:{
+					updateXY:function(event){
+						console.log(event);
+						this.x = event.offsetX;
+						this.y = event.offsetY;
+					}
+				}
+			});
+		</script>
+	</body>
+</html>
