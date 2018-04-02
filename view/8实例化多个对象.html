@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>实例化多个对象</title>
+		<script src="../node_modules/vue/dist/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<!--实例化一-->
+		<div id="testVueOne">
+			one {{message}}
+		</div>
+		
+		<!--实例化二-->
+		<div id="testVueTwo">
+			two {{message}}
+			<button type="button" v-on:click="changeOneMessage">
+				点击我能够修改one的message
+			</button>
+		</div>
+		
+		<script type="text/javascript">
+			var one = new Vue({
+				el:'#testVueOne',
+				data:{
+					message:'实例化对象1'
+				},
+				methods:{},
+				computed:{}
+			});
+			
+			var two = new Vue({
+				el:'#testVueTwo',
+				data:{
+					message:'实例化对象2'
+				},
+				methods:{
+					/**
+					 * 当需要修改实例化的另一个对象的数据时，
+					 * 需要先获取另一个对象的变量然后才能进行操作，
+					 * 即：one.message='这个方法可以修改one的message'。
+					 */
+					changeOneMessage:function(){
+						one.message = '的message已经被修改了';
+					}
+				},
+				computed:{}
+			});
+			
+			/**
+			 * 同时在这里也能够修改实例化的message
+			 */
+			one.message = '我是在实例化外面修改message';
+			two.message = '我是在实例化外面修改message';
+		</script>
+	</body>
+</html>

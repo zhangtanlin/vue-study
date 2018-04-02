@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>实例</title>
+		<style type="text/css">
+			.imgBox{width:400px;height:200px;margin:10px auto;border:1px solid #ff0000;background-size:cover;
+				background-image:url(../images/7-1实例.jpg);}
+			.imgChange{background-image:url(../images/7-2实例.jpg);}
+			.activeBox{width:400px;height;30px;margin:10px auto;text-align:center;}
+			.activeBox button{line-height: 30px;border: 0;cursor: pointer;outline: none;color: #000;background-color: #ccc;}
+			.activeBox button:hover{color:#fff;background-color: #000;}
+			.scrollBox{width: 400px;height: 10px;margin: 10px auto;background-color: #008000;}
+			.scrollBox div{height: 10px;background-color: #FF0000;}
+			.disNone{display: none;}
+		</style>
+		<script src="../node_modules/vue/dist/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="testVue">
+			<!--图片-->
+			<div class="imgBox" v-bind:class="{imgChange:scrollBarWidth100}"></div>
+			
+			<!--操作-->
+			<div class="activeBox">
+				<button type="button" v-on:click="scrollBarAdd" v-bind:class="{disNone:scrollBarWidth100}">
+					点击进度条进度增加
+				</button>
+				<button type="button" v-on:click="scrollBarReset">点击控制进度条</button>
+			</div>
+			
+			<!--进度条-->
+			<div class="scrollBox">
+				<!--
+                	作者：zhangtanlin90@126.com
+                	时间：2018-04-02
+                	描述：注意(v-bind:style="")的用法。
+                		   注意在style的对象里面可以加入单位"%"。
+                -->
+				<div v-bind:style="{width:scrollBarWidth+'%'}"></div>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			new Vue({
+				el:'#testVue',
+				data:{
+					scrollBarWidth100:false,
+					scrollBarWidth:0,
+					scrollBarWidthAddNumber:10
+				},
+				methods:{
+					scrollBarAdd:function(){
+						this.scrollBarWidth += this.scrollBarWidthAddNumber;
+						/**
+						 * 判定如果进度条为100%则修改为scrollBarWidth100==true
+						 * 【进度条进度为100的状态】。
+						 */
+						if(this.scrollBarWidth == 100){
+							this.scrollBarWidth100 = true;
+						}
+						
+					},
+					scrollBarReset:function(){
+						/**
+						 * 点击重置按钮
+						 * 修改进度条状态为非100状态
+						 * 同时设置scrollBarWidth的长度为0。
+						 */
+						this.scrollBarWidth100 = false;
+						this.scrollBarWidth = 0;
+					}
+				},
+				computed:{
+					
+				}
+			});
+		</script>
+	</body>
+</html>

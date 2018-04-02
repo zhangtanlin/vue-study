@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>实例化多个对象</title>
+		<script src="../node_modules/vue/dist/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<!--实例化一-->
+		<div id="testVueOne">
+			<greeting/>
+		</div>
+		
+		<!--实例化二-->
+		<div id="testVueTwo">
+			<greeting></greeting>
+		</div>
+		
+		<script type="text/javascript">
+			/*创建简单组件*/
+			Vue.component('greeting',{
+				/**
+				 * 可以使用es6的语法``。
+				 * 注意：template里面所有元素都应该包含在一个标签内，根标签有且只有一个。
+				 */
+				template:`
+					<div>
+						<p> {{name}} 我是简单组件内的p标签</p>
+						<button type="button" v-on:click="componentMethodsClick">
+							点我调用组件的methods下的componentMethodsClick方法
+						</button>
+					</div>
+				`,
+				data:function(){
+					return {
+						name:'我是data的返回值name。'
+					}
+				},
+				methods:{
+					componentMethodsClick:function(){
+						this.name = '我是component内methods的某个方法';
+					}
+				}
+			})
+			
+			/*调用Vue容器*/
+			var one = new Vue({
+				el:'#testVueOne'
+			});
+			var two = new Vue({
+				el:'#testVueTwo'
+			});
+		</script>
+	</body>
+</html>

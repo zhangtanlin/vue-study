@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>实例化多个对象</title>
+		<script src="../node_modules/vue/dist/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<!--实例化一-->
+		<div id="testVueOne">
+			<greeting/>
+		</div>
+		
+		<!--实例化二-->
+		<div id="testVueTwo">
+			<greeting></greeting>
+		</div>
+		
+		<script type="text/javascript">
+			/*创建简单组件*/
+			Vue.component('greeting',{
+				template:'<p> {{name}} 我是简单组件内的p标签</p>',
+				/**
+				 * data里面的数据可以直接被template调用。
+				 * data里面的数据，应该使用函数调用获取值，
+				 * 而不应该向Vue的非组件其他用法一样，直接获取变量
+				 * 【这是Vue的组件和非组件写法的区别之一】
+				 */
+				data:function(){
+					return {
+						name:'我是data的返回值name。'
+					}
+				}
+			})
+			
+			/*调用Vue容器*/
+			var one = new Vue({
+				el:'#testVueOne'
+			});
+			var two = new Vue({
+				el:'#testVueTwo'
+			});
+		</script>
+	</body>
+</html>
